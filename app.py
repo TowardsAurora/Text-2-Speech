@@ -23,17 +23,14 @@ def main():
             """
             <h1 align="center">Text-to-Speech</h1>
 
-            1. Write an utterance to generate,
-            2. Select the model to synthesize with
-            3. Select the speaker
-            4. Hit "Generate" and listen to the result!
-
-            When you select a Model for the first time,
-            it will take a little time to download it.
+            <p>1. 写一个语句来生成</p>
+            <p>2. 选择要合成的模型</p>
+            <p>3. 选择说话者</p>
+            <p>4. 点击 "生成 "并聆听结果！</p>
             """
         )
         with gr.Row(variant="panel"):
-            text = gr.Textbox(label="Text", placeholder="Insert your article here...")
+            text = gr.Textbox(label="Text", placeholder="请输入语句，当前仅支持英文......")
 
         with gr.Row():
             with gr.Column(variant="panel"):
@@ -48,9 +45,9 @@ def main():
 
             def set_model(model_name_str: str):
                 """
-                gets value from `model_name`, loads model,
-                re-initializes tts object, gets list of
-                speakers that model supports and set them to `speaker`
+                从 `model_name` 获取值，加载模型、
+                重新初始化 tts 对象，获取模型支持的扬声器列表并将其设置为
+                扬声器列表，并将其设置为 `speaker
                 """
                 model_path = hf_hub_download(
                     repo_id="balacoon/tts", filename=model_name_str
@@ -72,10 +69,10 @@ def main():
 
         def synthesize_audio(text_str: str, speaker_str: str = ""):
             """
-            gets utterance to synthesize from `text` Textbox
-            and speaker name from `speaker` dropdown list.
-            speaker name might be empty for single-speaker models.
-            Synthesizes the waveform and updates `audio` with it.
+            从`text`文本框中获取要合成的语句
+            和 `speaker` 下拉列表中的说话人名称。
+            对于单扬声器模型，扬声器名称可能为空。
+            合成波形并更新`audio`。
             """
             if not text_str:
                 logging.info("text or speaker are not provided")
